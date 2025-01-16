@@ -187,7 +187,7 @@ class CriticalSpeedAnalyzer:
                 pace_range[1], 
                 y_pos[i], 
                 f' {zone_data["range_pace"][1]} - {zone_data["range_pace"][0]} min/km\n'
-                f' ({zone_data["range_kmh"][0]} - {zone_data["range_kmh"][1]} km/h)', 
+                #f' ({zone_data["range_kmh"][0]} - {zone_data["range_kmh"][1]} km/h)', 
                 va='center', 
                 fontsize=9
             )
@@ -224,12 +224,12 @@ class CriticalSpeedAnalyzer:
 def main():
     """Streamlit app main function."""
     st.title("Critical Speed Analysis")
-    st.write("Enter your 400m, 800m, and 5000m times. Use either 'mm:ss' or a decimal number representing total seconds.")
+    st.write("Enter your 400m, 800m, and 5000m times. Use the'mm:ss' format e.g. 1:41")
 
     # Inputs for times
-    time_400 = st.text_input("400m Time", value="1:40")
-    time_800 = st.text_input("800m Time", value="3:35")
-    time_5000 = st.text_input("5000m Time", value="24:22")
+    time_400 = st.text_input("400m Time", value="1:30")
+    time_800 = st.text_input("800m Time", value="3:00")
+    time_5000 = st.text_input("5000m Time", value="20:00")
 
     # Distances in meters
     distances = [400, 800, 5000]
