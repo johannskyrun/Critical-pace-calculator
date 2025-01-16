@@ -246,7 +246,7 @@ def main():
             # Display results
             st.subheader("Results Summary")
             st.write(f"**Critical Pace:** {results['critical_pace_minkm']} min/km")
-            st.write(f"**Critical Speed:** {results['critical_speed_kmh']} km/h")
+            #st.write(f"**Critical Speed:** {results['critical_speed_kmh']} km/h")
             #st.write(f"**D' (meters):** {results['d_prime']}")
             st.write(f"**R² Score:** {results['r2_score']}")
             
@@ -255,7 +255,7 @@ def main():
             for zone, data in results['training_zones'].items():
                 st.markdown(f"**{zone}**")
                 st.write(f"- Pace Range: {data['range_pace'][1]} - {data['range_pace'][0]} min/km")
-                st.write(f"- Speed Range: {data['range_kmh'][0]} - {data['range_kmh'][1]} km/h")
+                #st.write(f"- Speed Range: {data['range_kmh'][0]} - {data['range_kmh'][1]} km/h")
             
             # Marathon prediction
             st.subheader("Marathon Prediction")
