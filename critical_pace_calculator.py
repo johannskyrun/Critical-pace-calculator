@@ -247,7 +247,7 @@ def main():
             st.subheader("Results Summary")
             st.write(f"**Critical Pace:** {results['critical_pace_minkm']} min/km")
             st.write(f"**Critical Speed:** {results['critical_speed_kmh']} km/h")
-            st.write(f"**D' (meters):** {results['d_prime']}")
+            #st.write(f"**D' (meters):** {results['d_prime']}")
             st.write(f"**R² Score:** {results['r2_score']}")
             
             # Training Zones
