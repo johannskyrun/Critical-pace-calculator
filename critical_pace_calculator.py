@@ -228,8 +228,10 @@ class CriticalSpeedAnalyzer:
 def main():
     """Streamlit app main function."""
     st.title("Critical Speed Analysis")
+    st.title("www.switchback-coaching.com")
     st.write("Enter your 400m, 800m, and 5000m times. Use the 'mm:ss' format e.g. 1:41")
     st.write("Use your times from the last 16 weeks to get a estimation of your current ability or realistic times for your current ability")
+     st.write("www.switchback-coachin.com")
 
     # Inputs for times
     time_400 = st.text_input("400m Time", value="1:30")
