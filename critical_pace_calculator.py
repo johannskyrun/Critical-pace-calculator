@@ -187,7 +187,7 @@ class CriticalSpeedAnalyzer:
                 pace_range[1], 
                 y_pos[i], 
                 f' {zone_data["range_pace"][1]} - {zone_data["range_pace"][0]} min/km\n'
-                f' ({zone_data["range_kmh"][0]} - {zone_data["range_kmh"][1]} km/h)', 
+                #f' ({zone_data["range_kmh"][0]} - {zone_data["range_kmh"][1]} km/h)', 
                 va='center', 
                 fontsize=9
             )
