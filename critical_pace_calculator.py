@@ -229,6 +229,7 @@ def main():
     """Streamlit app main function."""
     st.title("Critical Speed Analysis")
     st.write("Enter your 400m, 800m, and 5000m times. Use the 'mm:ss' format e.g. 1:41")
+    st.write("Use your times from the last 16 weeks to get a estimation of your current ability")
 
     # Inputs for times
     time_400 = st.text_input("400m Time", value="1:30")
