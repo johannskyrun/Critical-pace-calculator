@@ -236,7 +236,7 @@ def main():
     time_5000 = st.text_input("5000m Time", value="20:00")
 
     # Add a checkbox to see if the user is close to a 2:30 marathoner
-    close_to_2_30 = st.checkbox("Are you around a 2:30 marathoner? (Use 93% of CS for Marathon)")
+    close_to_2_30 = st.checkbox("Are you around a 2:30 marathoner?")
 
     # Distances in meters
     distances = [400, 800, 5000]
