@@ -52,7 +52,8 @@ class CriticalSpeedAnalyzer:
         self, 
         distances,       # List of floats
         race_times,      # List of strings
-        distance_unit='meters'
+        distance_unit='meters',
+        marathon_percentage=0.85  # Use 85% by default
     ) -> dict:
         """
         Calculate Critical Speed and related metrics.
@@ -65,6 +66,9 @@ class CriticalSpeedAnalyzer:
             List of race times in 'min:sec' or decimal format
         distance_unit : str
             'meters' or 'kilometers'
+        marathon_percentage : float
+            The fraction of Critical Speed used for Marathon prediction 
+            (default 0.85, can change to 0.93 for ~2:30 marathoners).
             
         Returns:
         --------
@@ -118,8 +122,8 @@ class CriticalSpeedAnalyzer:
                 'range_pace': (self.format_pace(lower_pace), self.format_pace(upper_pace))
             }
         
-        # Marathon prediction at 85% of CS
-        marathon_speed = self.cs_m_per_s * 0.85
+        # Marathon prediction (variable percentage of CS)
+        marathon_speed = self.cs_m_per_s * marathon_percentage
         marathon_pace_min_km = 1000 / marathon_speed / 60
         marathon_time_seconds = 42195 / marathon_speed
         marathon_time = self.format_time_h_m(marathon_time_seconds)
@@ -224,12 +228,15 @@ class CriticalSpeedAnalyzer:
 def main():
     """Streamlit app main function."""
     st.title("Critical Speed Analysis")
-    st.write("Enter your 400m, 800m, and 5000m times. Use the'mm:ss' format e.g. 1:41")
+    st.write("Enter your 400m, 800m, and 5000m times. Use the 'mm:ss' format e.g. 1:41")
 
     # Inputs for times
     time_400 = st.text_input("400m Time", value="1:30")
     time_800 = st.text_input("800m Time", value="3:00")
     time_5000 = st.text_input("5000m Time", value="20:00")
+
+    # Add a checkbox to see if the user is close to a 2:30 marathoner
+    close_to_2_30 = st.checkbox("Are you around a 2:30 marathoner? (Use 93% of CS for Marathon)")
 
     # Distances in meters
     distances = [400, 800, 5000]
@@ -237,17 +244,23 @@ def main():
 
     # Button to run analysis
     if st.button("Analyze"):
+        # Decide which percentage to use based on the checkbox
+        if close_to_2_30:
+            marathon_percentage = 0.93
+        else:
+            marathon_percentage = 0.85
+        
         analyzer = CriticalSpeedAnalyzer()
         
         try:
-            # Calculate critical speed
-            results = analyzer.calculate_critical_speed(distances, race_times)
+            # Calculate critical speed, passing in the selected marathon percentage
+            results = analyzer.calculate_critical_speed(distances, race_times, marathon_percentage=marathon_percentage)
             
             # Display results
             st.subheader("Results Summary")
             st.write(f"**Critical Pace:** {results['critical_pace_minkm']} min/km")
-            #st.write(f"**Critical Speed:** {results['critical_speed_kmh']} km/h")
-            #st.write(f"**D' (meters):** {results['d_prime']}")
+            # st.write(f"**Critical Speed:** {results['critical_speed_kmh']} km/h")
+            # st.write(f"**D' (meters):** {results['d_prime']}")
             st.write(f"**R² Score:** {results['r2_score']}")
             
             # Training Zones
@@ -255,7 +268,7 @@ def main():
             for zone, data in results['training_zones'].items():
                 st.markdown(f"**{zone}**")
                 st.write(f"- Pace Range: {data['range_pace'][1]} - {data['range_pace'][0]} min/km")
-                #st.write(f"- Speed Range: {data['range_kmh'][0]} - {data['range_kmh'][1]} km/h")
+                # st.write(f"- Speed Range: {data['range_kmh'][0]} - {data['range_kmh'][1]} km/h")
             
             # Marathon prediction
             st.subheader("Marathon Prediction")
